@@ -34,7 +34,7 @@
   firebase.initializeApp(firebaseConfig);
 
 
-  var myName = prompt("Enter your name");
+  var myName = prompt("请为自己起个名字");
   function sendMessage(){
     var message = document.getElementById("message").value;
     firebase.database().ref("messages").push().set({
@@ -73,9 +73,10 @@
 
 	</script>
 
+  <p>一起来聊天</p>
   <form onsubmit="return sendMessage();">
-    <input id="message" placeholder="enter message" autocomplete="off">
-    <input type="submit">
+    <input id="message" placeholder="在此输入内容" autocomplete="off">
+    <input type="submit" placeholder="发送">
   </form>
 
   <ul id="messages"></ul>
