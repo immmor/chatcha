@@ -49,7 +49,7 @@
     html += "<li id='message-" + snapshot.key + "'>";
       if (snapshot.val().sender == myName) {
         html += "<button data-id='" + snapshot.key + "' onclick='deleteMessage(this);'>";
-          html += "Delete";
+          html += "删除";
         html += "</button>";
       }
 
