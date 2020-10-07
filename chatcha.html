@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
@@ -43,72 +42,57 @@
       };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
-
-
-
-
-  
-
-  var myName = prompt("请为自己起个名字");
-  function sendMessage(){
-    var message = document.getElementById("message").value;
-    firebase.database().ref("messages").push().set({
-      "sender": myName,
-      "message": message
-    });
-    return false;
-  }
-
-  firebase.database().ref("messages").on("child_added", function (snapshot){
-    var html = "";
-    html += "<li id='message-" + snapshot.key + "'>";
-      if (snapshot.val().sender == myName) {
-        html += "<button data-id='" + snapshot.key + "' onclick='deleteMessage(this);'>";
-          html += "删除";
-        html += "</button>";
+	  
+    var myName = prompt("请为自己起个名字");
+    function sendMessage(){
+      var message = document.getElementById("message").value;
+      firebase.database().ref("messages").push().set({
+        "sender": myName,
+        "message": message
+        });
+      return false;
       }
 
-
+    firebase.database().ref("messages").on("child_added", function (snapshot){
+      var html = "";
+      html += "<li id='message-" + snapshot.key + "'>";
+      if (snapshot.val().sender == myName) {
+        html += "<button data-id='" + snapshot.key + "' onclick='deleteMessage(this);'>";
+        html += "删除";
+        html += "</button>";
+        }
       html += snapshot.val().sender + ": " + snapshot.val().message;
-    html += "</li>";
+      html += "</li>";
+      document.getElementById("messages").innerHTML += html;
+      });
 
-    document.getElementById("messages").innerHTML += html;
-  });
+    function deleteMessage(self) {
+      var messageId = self.getAttribute("data-id");
+      firebase.database().ref("messages").child(messageId).remove();
+      }
 
-  function deleteMessage(self) {
-    var messageId = self.getAttribute("data-id");
+    firebase.database().ref("messages").on("child_removed", function (snapshot) {
+      document.getElementById("message-" + snapshot.key).innerHTML = "此消息已删除";
+      });
 
-    firebase.database().ref("messages").child(messageId).remove();
-  }
+    //let btnClear = document.querySelector('submit');
+    //let inputs = document.querySelectorAll('message');
 
-  firebase.database().ref("messages").on("child_removed", function (snapshot) {
-    document.getElementById("message-" + snapshot.key).innerHTML = "此消息已删除";
-    });
+    //btnClear.addEventListener('click', () => {
+    //  inputs.forEach(message => input.value = '');
+    //  });
 
-
-
- //let btnClear = document.querySelector('submit');
- // let inputs = document.querySelectorAll('message');
-
-  //btnClear.addEventListener('click', () => {
-  //  inputs.forEach(message => input.value = '');
- // });
-
- function playMusic(){
-  var music = new Audio('perfect.mp3');
-  music.play();
-  }
-
- 
-
-//onfocus="this.value=''"
-
-
-	</script>
+    function playMusic(){
+      var music = new Audio('perfect.mp3');
+      music.play();
+      }
+	  
+  </script>
+  
   <!--
   <div id="draggable" class="ui-widget-content" style="background-color: green">
-  <p></p>
-  </div>  -->
+  <p></p>  </div>  
+  -->
 
   <button style="height:32px; width: 32px; background-color:green; font-size:13px; color:black; border: 2px solid green; border-radius: 0px; -webkit-appearance: none;" onclick="window.location.href='https://ipel.github.io/NS-SHAFT/'"></button>
 
@@ -126,20 +110,18 @@
     <input type="submit" value="发送" onclick="playMusic()" style ="height:29px; width: 55px; background-color:black; font-size:13px; color:white; border: 2px solid black; border-radius: 0px; -webkit-appearance: none;">
     <input type="reset" value="净"  style="height:29px; width: 29px; background-color:black; font-size:13px; color:black; border: 2px solid black; border-radius: 0px; -webkit-appearance: none;">
   </form>
-   
-  
+     
   <ul id="messages"></ul>
   </br>
   </br>
-  <!-- <p style="font-size:15px; color: green; line-height: 1px; text-align:left;">我在哪？</p>
-  <p align="center"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2603.3703580665583!2d-123.25869194839782!3d49.26937907922851!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x548672b143d6ade3%3A0x3d43bb11d0d4bcf8!2sUBC%20Rose%20Garden!5e0!3m2!1sen!2sca!4v1599880166865!5m2!1sen!2sca" width=100% height="250" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe></p> -->
+  <!-- 
+  <p style="font-size:15px; color: green; line-height: 1px; text-align:left;">我在哪？</p>
+  <p align="center"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2603.3703580665583!2d-123.25869194839782!3d49.26937907922851!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x548672b143d6ade3%3A0x3d43bb11d0d4bcf8!2sUBC%20Rose%20Garden!5e0!3m2!1sen!2sca!4v1599880166865!5m2!1sen!2sca" width=100% height="250" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe></p> 
+  -->
 
-
- 
-  <!-- <iframe src="https://ipel.github.io/NS-SHAFT/" width=100% height=580px></iframe>  -->
-
-
+  <!-- 
+  <iframe src="https://ipel.github.io/NS-SHAFT/" width=100% height=580px></iframe>  
+  -->
 	
 </body>
-
 </html>
