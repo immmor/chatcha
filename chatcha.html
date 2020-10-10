@@ -8,6 +8,23 @@
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <style>
     #draggable { width: 15px; height: 15px; padding: 0.5em; }
+    #run {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  position: relative;
+  animation-name: example;
+  animation-duration: 4s;
+  animation-iteration-count: 3;
+}
+
+@keyframes example {
+  0%   {background-color:red; left:0px; top:0px;}
+  25%  {background-color:yellow; left:100%; top:0px;}
+  50%  {background-color:blue; left:100%; top:100%;}
+  75%  {background-color:green; left:0px; top:100%;}
+  100% {background-color:red; left:0px; top:0px;}
+}
   </style>
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -88,6 +105,8 @@
       }
 	  
   </script>
+
+  <div id="run"></div>
   
   <!--
   <div id="draggable" class="ui-widget-content" style="background-color: green">
